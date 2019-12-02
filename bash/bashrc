@@ -1,0 +1,34 @@
+export TERM=xterm-256color
+export COLORTERM=truecolor
+export VISUAL="nvim"
+export EDITOR="nvim"
+export PAGER="less"
+
+alias ..="cd .."
+alias ...="cd ..."
+alias ....="cd ...."
+alias .....="cd ....."
+
+alias open="xdg-open"
+
+alias chromium="chromium --no-sandbox"
+
+alias vi="nvim"
+alias vim="nvim"
+
+alias tmux="tmux -2 -u"
+
+alias l='ls --color=always --group-directories-first --classify -l'
+alias la='ls --color=always --group-directories-first --classify -a'
+alias less='less --IGNORE-CASE --tabs=4 --status-column --LONG-PROMPT --line-numbers --RAW-CONTROL-CHARS'
+alias ll='ls --color=always --group-directories-first --classify -al'
+alias ls='ls --color=always --group-directories-first --classify'
+
+
+# Reload Xresources config
+if [ -f ~/.Xresources ]; then
+	rld-xresources() {
+		echo "\$ xrdb ~/.Xresources"
+		xrdb ~/.Xresources
+	}
+fi

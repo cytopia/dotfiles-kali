@@ -1,0 +1,42 @@
+general {
+	colors = true
+	interval = 5
+}
+
+order += "ethernet tap0"
+order += "ethernet _first_"
+order += "disk /"
+order += "load"
+order += "memory"
+order += "tztime date"
+order += "tztime time"
+
+ethernet tap0 {
+	format_up = " VPN:  %ip "
+	format_down = " VPN:  down "
+}
+
+ethernet _first_ {
+	format_up = " E:  %ip "
+	format_down = " E:  down "
+}
+
+disk "/" {
+	format = " %used / %avail "
+}
+
+load {
+	format = " %1min "
+}
+
+memory {
+	format = " %used RAM "
+}
+
+tztime date {
+	format = " %Y-%m-%d "
+}
+
+tztime time {
+	format = " %H:%M "
+}

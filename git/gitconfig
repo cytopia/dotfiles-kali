@@ -1,0 +1,120 @@
+[user]
+	name = user
+	email = user@email.tld
+
+
+[core]
+	# Check if converting CRLF is reversible
+	# and abort if not
+	safecrlf = true
+
+	# Default 'git diff' view
+	#pager = less -x1,5
+	pager = diff-highlight | less -x1,5 -R
+
+	# whitespace fix
+	# space-before-tab: treats a space character that appears immediately before a
+	# tab character in the initial indent part of the line as an error
+	whitespace = blank-at-eol,blank-at-eof,space-before-tab,trailing-space
+
+
+[apply]
+	# Warn about whitespace issues defined in core.whitespace
+	whitespace = warn
+
+
+[status]
+    submodulesummary = true
+
+
+[commit]
+	verbose = true
+
+
+[pull]
+	ff = only
+
+
+[merge]
+	summary = true
+	ff		= false
+
+
+[mergetool]
+	keepBackup = false
+	prompt = false
+
+
+[mergetool "vimdiff"]
+	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+
+[diff]
+	tool = vimdiff
+
+
+[difftool]
+	# Do not prompt before launching a diff tool
+	prompt = false
+	# Be able to abort all diffs with `:cq` or `:cquit`
+	trustExitCode = true
+
+
+[difftool "vimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE
+
+
+[alias]
+	uncommit = reset HEAD~1 --mixed
+	current = !sh -c 'git name-rev --tags --name-only $(git rev-parse HEAD)'
+	tags = !"git for-each-ref \
+		--sort=creatordate \
+		--format '%(refname)_,,,_%(creatordate:format:%Y-%m-%d %H:%M)_,,,_%(committername)%(taggername)_,,,_%(subject)' refs/tags \
+		| sed 's|^refs/tags/||g' \
+		| awk 'BEGIN { FS = \"_,,,_\"  } ; { \
+			printf \"%-20s %-18s %-25s %s\\n\", $2, $1, $4, $3  \
+		}'"
+
+	# List files (indexed)
+	ls		= ls-tree --name-only -r HEAD
+
+	# List files (ignored)
+	ign		= ls-files -o -i --exclude-standard
+	ls-ign	= ls-files -o -i --exclude-standard
+	ls-ignored	= ls-files -o -i --exclude-standard
+
+	# List files (modified)
+	ls-mod	= ls-files -m
+	ls-modified	= ls-files -m
+
+	# List files (deleted)
+	ls-del	= ls-files -d
+	ls-deleted = ls-files -d
+
+	# List files (unmerged)
+	ls-unm	= ls-files -u
+	ls-unmerged = ls-files -u
+
+
+[color]
+	ui = true
+
+
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold

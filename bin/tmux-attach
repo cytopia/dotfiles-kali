@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+SESSION="$( tmux -u ls | grep -v '(attached)' | awk -F':' '{print $1}' | head -1 )"
+
+if [ -n "${SESSION}" ]; then
+	tmux attach -t "${SESSION}" 2>/dev/null
+else
+	tmux new-session 2>/dev/null
+fi
